@@ -1,0 +1,64 @@
+using UnityEngine;
+
+public class RangedMonster : MonoBehaviour
+{
+    public Transform target;
+    public GameObject bulletPrefab;
+    public float attackRange = 7f;
+    public float retreatDistance = 4f;
+    public float attackCooldown = 2f;
+    public float moveSpeed = 1.5f;
+
+    private float attackTimer = 0f;
+
+    void Start()
+    {
+        if (target == null)
+        {
+            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+            if (playerObj != null)
+                target = playerObj.transform;
+        }
+    }
+
+    void Update()
+    {
+        if (target == null) return;
+
+        attackTimer += Time.deltaTime;
+        float distance = Vector2.Distance(transform.position, target.position);
+
+        // �Ÿ��� �ʹ� ������ ����
+        if (distance < retreatDistance)
+        {
+            Vector2 dir = (transform.position - target.position).normalized;
+            transform.position += (Vector3)(dir * moveSpeed * Time.deltaTime);
+        }
+
+        // �߻�
+        if (distance <= attackRange && attackTimer >= attackCooldown)
+        {
+            Shoot();
+            attackTimer = 0f;
+        }
+    }
+
+    void Shoot()
+    {
+        Vector3 dir = (target.position - transform.position).normalized;
+        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        bullet.transform.right = dir;
+
+        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        rb.linearVelocity = dir * 5f;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Bullet"))
+        {
+            Destroy(gameObject);
+            Destroy(other.gameObject);
+        }
+    }
+}
