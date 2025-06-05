@@ -1,19 +1,20 @@
 using UnityEngine;
 
-public class ExitPortal : MonoBehaviour
+public class Exitportal : MonoBehaviour
 {
-    private DungeonGenerator dungeon;
+    private DungeonManager dungeonManager;
 
     void Start()
     {
-        dungeon = Object.FindFirstObjectByType<DungeonGenerator>();
+        dungeonManager = FindFirstObjectByType<DungeonManager>();
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && dungeon != null)
+        if (other.CompareTag("Player"))
         {
-            dungeon.LoadNextRoom();
+            dungeonManager.LoadNextRoom();
+            Destroy(gameObject); // 포탈은 일회용
         }
     }
 }

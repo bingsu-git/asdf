@@ -16,6 +16,9 @@ public class Monster : MonoBehaviour
 
     void Start()
     {
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb.freezeRotation = true;
+
         if (target == null)
         {
             GameObject playerObj = GameObject.FindGameObjectWithTag("Player");

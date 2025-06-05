@@ -28,20 +28,27 @@ public class RangedMonster : MonoBehaviour
         attackTimer += Time.deltaTime;
         float distance = Vector2.Distance(transform.position, target.position);
 
-        // �Ÿ��� �ʹ� ������ ����
+        // 가까우면 도망
         if (distance < retreatDistance)
         {
             Vector2 dir = (transform.position - target.position).normalized;
             transform.position += (Vector3)(dir * moveSpeed * Time.deltaTime);
         }
+        // 멀면 다가감
+        else if (distance > attackRange)
+        {
+            Vector2 dir = (target.position - transform.position).normalized;
+            transform.position += (Vector3)(dir * moveSpeed * Time.deltaTime);
+        }
 
-        // �߻�
+        // 사정거리 안이면 공격
         if (distance <= attackRange && attackTimer >= attackCooldown)
         {
             Shoot();
             attackTimer = 0f;
         }
     }
+
 
     void Shoot()
     {
