@@ -2,16 +2,19 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float speed = 10f;
     public float lifeTime = 2f;
 
     void Start()
     {
-        Destroy(gameObject, lifeTime); // 일정 시간 후 자동 제거
+        Destroy(gameObject, lifeTime);
     }
 
-    void Update()
+    void OnTriggerEnter2D(Collider2D other)
     {
-        transform.Translate(Vector2.right * speed * Time.deltaTime);
+        if (other.CompareTag("Wall"))
+        {
+            Destroy(gameObject);
+        }
     }
+
 }

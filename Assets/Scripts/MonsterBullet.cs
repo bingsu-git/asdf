@@ -7,7 +7,7 @@ public class MonsterBullet : MonoBehaviour
 
     void Start()
     {
-        Destroy(gameObject, lifeTime);
+        Destroy(gameObject, lifeTime); // 수명 지나면 삭제
     }
 
     void Update()
@@ -26,6 +26,10 @@ public class MonsterBullet : MonoBehaviour
             }
 
             Destroy(gameObject);
+        }
+        else if (other.CompareTag("Wall"))
+        {
+            Destroy(gameObject); // 벽에 부딪히면 바로 제거
         }
     }
 }
