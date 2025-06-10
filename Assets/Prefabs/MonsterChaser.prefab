@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 468700313155868410}
   - component: {fileID: 2990516850716884373}
   - component: {fileID: 4179843959755668115}
+  - component: {fileID: 3422692537332132053}
   - component: {fileID: 7101386569426122589}
-  - component: {fileID: -2600880465508985544}
   m_Layer: 0
-  m_Name: Monster_Rusher
+  m_Name: MonsterChaser
   m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -164,6 +164,23 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &3422692537332132053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5820320850184272818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d37d5f53051df1048a119218a01d9db3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  bulletPrefab: {fileID: 846131209905821018, guid: 61d7ea2c88d0ffd49bdab608846b5aef, type: 3}
+  speed: 2
+  attackRange: 5
+  attackCooldown: 2
 --- !u!114 &7101386569426122589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,18 +194,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 3
---- !u!114 &-2600880465508985544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5820320850184272818}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71704e01471db4b439aa3d15289062ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  rushSpeed: 5
-  rushInterval: 3

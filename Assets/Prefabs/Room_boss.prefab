@@ -56,9 +56,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6763062367270666164}
   - component: {fileID: 7316319505129242933}
-  - component: {fileID: 3112472775481003558}
+  - component: {fileID: 786328418662989873}
   m_Layer: 0
-  m_Name: Room_1
+  m_Name: Room_boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a95107f955c4964d8ea46ab36dc7842, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3112472775481003558
+--- !u!114 &786328418662989873
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

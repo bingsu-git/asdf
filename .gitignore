@@ -11,6 +11,7 @@ UserSettings/
 # VS/JetBrains project files
 .vscode/
 .idea/
+.vs/
 *.csproj
 *.unityproj
 *.sln

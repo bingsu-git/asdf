@@ -49,7 +49,6 @@ public class RangedMonster : MonoBehaviour
         }
     }
 
-
     void Shoot()
     {
         Vector3 dir = (target.position - transform.position).normalized;
@@ -64,7 +63,13 @@ public class RangedMonster : MonoBehaviour
     {
         if (other.CompareTag("Bullet"))
         {
-            Destroy(gameObject);
+            //  MonsterHealth에게 체력 감소 + 사망 처리 위임
+            MonsterHealth health = GetComponent<MonsterHealth>();
+            if (health != null)
+            {
+                health.TakeDamage(1);
+            }
+
             Destroy(other.gameObject);
         }
     }

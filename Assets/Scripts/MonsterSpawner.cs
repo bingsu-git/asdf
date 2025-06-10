@@ -2,61 +2,92 @@ using UnityEngine;
 
 public class MonsterSpawner : MonoBehaviour
 {
-    public GameObject[] monsterPrefabs;   // 다양한 몬스터 프리팹들
-    public Transform player;              // 플레이어 위치
-    public float spawnInterval = 3f;      // 생성 간격
-    public int maxMonsters = 10;          // 최대 수
-    public float spawnRange = 5f;         // 생성 반경
-    public float minDistance = 3f;        // 플레이어와 최소 거리
+    public GameObject[] monsterPrefabs;
+    public GameObject portalPrefab;
 
-    private float timer = 0f;
+    public Transform player;
+    public Transform roomCenter;
+
+    public Vector2 roomSize = new Vector2(25, 30);
+    public float margin = 2f;
+    public int monsterCount = 5;
+    public float minDistance = 3f;
+
+    private int monstersAlive = 0;
+    private bool spawned = false;
+
+    // 가능한 한 빨리 이벤트 구독
+    private void Awake()
+    {
+        Debug.Log("[Spawner] Awake: " + gameObject.name);
+        MonsterHealth.OnAnyMonsterDeath -= HandleMonsterDeath;
+        MonsterHealth.OnAnyMonsterDeath += HandleMonsterDeath;
+    }
 
     void Start()
     {
+        // 플레이어 참조 확인
         if (player == null)
         {
             GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
             if (playerObj != null)
-            {
                 player = playerObj.transform;
-            }
-            else
-            {
-                Debug.LogWarning("Player 오브젝트를 찾을 수 없습니다!");
-            }
         }
+
+        // roomCenter가 없으면 자기 자신(프리팹 루트)을 사용
+        if (roomCenter == null)
+            roomCenter = transform;
+
+        SpawnMonstersOnce();
     }
 
-    void Update()
+    void OnDestroy()
     {
-        timer += Time.deltaTime;
+        // 메모리 누수 방지를 위해 이벤트 구독 해제
+        MonsterHealth.OnAnyMonsterDeath -= HandleMonsterDeath;
+    }
 
-        if (timer >= spawnInterval && CountMonsters() < maxMonsters)
+    void SpawnMonstersOnce()
+    {
+        if (spawned) return;
+        spawned = true;
+        monstersAlive = 0; // 생성 전 초기화
+
+        int spawnedCount = 0;
+        int attempts = 0;
+
+        while (spawnedCount < monsterCount && attempts < 100)
         {
-            Vector2 spawnPos;
-            int safety = 0;
+            float x = Random.Range(-roomSize.x / 2f + margin, roomSize.x / 2f - margin);
+            float y = Random.Range(-roomSize.y / 2f + margin, roomSize.y / 2f - margin);
+            Vector2 localPos = new Vector2(x, y);
+            Vector2 spawnPos = (Vector2)roomCenter.position + localPos;
 
-            // 플레이어와 너무 가까운 위치는 재시도
-            do
+            // 플레이어와의 최소 거리 보장
+            if (Vector2.Distance(spawnPos, player.position) >= minDistance)
             {
-                spawnPos = (Vector2)player.position + Random.insideUnitCircle * spawnRange;
-                safety++;
-                if (safety > 50) return; // 무한루프 방지
+                int index = Random.Range(0, monsterPrefabs.Length);
+                Instantiate(monsterPrefabs[index], spawnPos, Quaternion.identity);
+                spawnedCount++;
+                monstersAlive++;
             }
-            while (Vector2.Distance(spawnPos, player.position) < minDistance);
 
-            // 랜덤한 몬스터 프리팹 선택
-            int index = Random.Range(0, monsterPrefabs.Length);
-            GameObject chosenPrefab = monsterPrefabs[index];
-
-            Instantiate(chosenPrefab, spawnPos, Quaternion.identity);
-            timer = 0f;
+            attempts++;
         }
+
+        Debug.Log($"몬스터 {monstersAlive}마리 생성됨");
     }
 
-    int CountMonsters()
+    void HandleMonsterDeath()
     {
-        return GameObject.FindGameObjectsWithTag("Monster").Length;
+        monstersAlive--;
+        Debug.Log($" 몬스터 죽음 감지됨. 남은 몬스터: {monstersAlive}");
+
+        if (monstersAlive <= 0)
+        {
+            Debug.Log(" 모든 몬스터 제거됨! 포탈 생성!");
+            // 포탈 위치: roomCenter에서 위로 5 단위. (필요시 player.position 등으로 조정 가능)
+            Instantiate(portalPrefab, roomCenter.position + Vector3.up * 5f, Quaternion.identity);
+        }
     }
 }
-

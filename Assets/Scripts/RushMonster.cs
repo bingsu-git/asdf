@@ -34,7 +34,14 @@ public class RusherMonster : MonoBehaviour
     {
         if (other.CompareTag("Bullet"))
         {
-            Destroy(gameObject); // 간단한 처리
+            
+            MonsterHealth health = GetComponent<MonsterHealth>();
+            if (health != null)
+            {
+                health.TakeDamage(1);
+            }
+
+            Destroy(other.gameObject);
         }
     }
 }
