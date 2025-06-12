@@ -54,7 +54,6 @@ public class PlayerShooting : MonoBehaviour
         }
     }
 
-    // 💥 아이템 효과용 코루틴들
     public System.Collections.IEnumerator BoostFireRate(float amount, float duration)
     {
         fireCooldown -= amount;
