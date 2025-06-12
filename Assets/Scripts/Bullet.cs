@@ -12,19 +12,19 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Monster"))
+        // MonsterHealth가 붙어 있는 모든 오브젝트에 데미지 적용
+        MonsterHealth mh = other.GetComponent<MonsterHealth>();
+        if (mh != null)
         {
-            MonsterHealth mh = other.GetComponent<MonsterHealth>();
-            if (mh != null)
-                mh.TakeDamage(damage);
-
+            mh.TakeDamage(damage);
             Destroy(gameObject);
+            return;
         }
 
+        // 벽 처리
         if (other.CompareTag("Wall"))
         {
             Destroy(gameObject);
         }
     }
-
 }

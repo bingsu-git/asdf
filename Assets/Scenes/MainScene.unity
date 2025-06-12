@@ -615,9 +615,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomPrefabs:
   - {fileID: 202022147366728205, guid: a34cb37042ee1644fb137d48e66ba0de, type: 3}
-  - {fileID: 202022147366728205, guid: 9268d8d7d48d8a442a19d56ef071b5d7, type: 3}
-  - {fileID: 202022147366728205, guid: 0b2f881f1337af847bf367123b5f50b1, type: 3}
-  - {fileID: 202022147366728205, guid: 3e6fe7f747e99cf48b02a2dde5259bb4, type: 3}
+  - {fileID: 202022147366728205, guid: d83b198c330128c4fa8a91e48e1d56ec, type: 3}
+  - {fileID: 202022147366728205, guid: 996d2dddfad5b5e4dbdb3bc451492fdb, type: 3}
   roomSpawnPoint: {fileID: 910837190}
   player: {fileID: 1547439681}
 --- !u!4 &986569849
@@ -948,6 +947,7 @@ MonoBehaviour:
   projectileCount: 1
   projectileSpeed: 10
   projectileDamage: 1
+  tripleShot: 0
 --- !u!1 &2026051832
 GameObject:
   m_ObjectHideFlags: 0

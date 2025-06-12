@@ -9,9 +9,11 @@ public class PlayerShooting : MonoBehaviour
 
     private float fireTimer = 0f;
     private Camera mainCam;
+
     public int projectileCount = 1;
     public float projectileSpeed = 10f;
     public int projectileDamage = 1;
+    public bool tripleShot = false;
 
     void Start()
     {
@@ -35,8 +37,8 @@ public class PlayerShooting : MonoBehaviour
         mouseWorldPos.z = 0f;
         Vector2 baseDir = (mouseWorldPos - firePoint.position).normalized;
 
-        float spreadAngle = 10f; // 3갈래일 때 퍼지는 각도
-        int count = projectileCount;
+        int count = tripleShot ? 3 : projectileCount;
+        float spreadAngle = 15f;
 
         for (int i = 0; i < count; i++)
         {
@@ -48,8 +50,29 @@ public class PlayerShooting : MonoBehaviour
             rb.linearVelocity = dir * projectileSpeed;
 
             Bullet bulletScript = bullet.GetComponent<Bullet>();
-            bulletScript.damage = projectileDamage; // 💥 데미지 전달
+            bulletScript.damage = projectileDamage;
         }
     }
 
+    // 💥 아이템 효과용 코루틴들
+    public System.Collections.IEnumerator BoostFireRate(float amount, float duration)
+    {
+        fireCooldown -= amount;
+        yield return new WaitForSeconds(duration);
+        fireCooldown += amount;
+    }
+
+    public System.Collections.IEnumerator BoostDamage(int bonus, float duration)
+    {
+        projectileDamage += bonus;
+        yield return new WaitForSeconds(duration);
+        projectileDamage -= bonus;
+    }
+
+    public System.Collections.IEnumerator TripleShot(float duration)
+    {
+        tripleShot = true;
+        yield return new WaitForSeconds(duration);
+        tripleShot = false;
+    }
 }

@@ -45,5 +45,11 @@ public class DungeonManager : MonoBehaviour
         nextRoomPos += new Vector3(0f, -roomHeight, 0f);
         floor++;
         Debug.Log("Floor " + floor);
+
+        ItemSpawner itemSpawner = currentRoom.GetComponentInChildren<ItemSpawner>();
+        if (itemSpawner != null)
+        {
+            itemSpawner.isFinalRoom = (currentRoomIndex == roomPrefabs.Length);
+        }
     }
 }

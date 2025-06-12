@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 200504499675756224}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.83623, y: 0.21624, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 6763062367270666164}
   - component: {fileID: 7316319505129242933}
   - component: {fileID: 3112472775481003558}
+  - component: {fileID: -3719930947235025462}
   m_Layer: 0
   m_Name: Room_1
   m_TagString: Untagged
@@ -110,12 +111,36 @@ MonoBehaviour:
   - {fileID: 5820320850184272818, guid: 086cbaeaa422f7d4db1ce31bbdc31b2b, type: 3}
   - {fileID: 5820320850184272818, guid: 302e10e51a318464293e4c6703f77a6e, type: 3}
   portalPrefab: {fileID: 6718358868428752492, guid: fb86530047d24cd4e858626bf71679a0, type: 3}
+  itemPrefabs:
+  - {fileID: 3922311855408077299, guid: 3dc6a6b7bbb217043b6dd97665cae29a, type: 3}
+  - {fileID: 3922311855408077299, guid: ea07b6eb5dbbc284a8bc552d02f6a6d3, type: 3}
+  - {fileID: 3922311855408077299, guid: 933e19dca82217f40a7c176e263da392, type: 3}
   player: {fileID: 0}
   roomCenter: {fileID: 0}
   roomSize: {x: 25, y: 30}
   margin: 2
-  monsterCount: 5
   minDistance: 3
+  monstersPerWave: 5
+  maxWaves: 3
+--- !u!114 &-3719930947235025462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202022147366728205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ab0771ef5f1c3a45926b574c0b647ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemPrefabs:
+  - {fileID: 3922311855408077299, guid: 933e19dca82217f40a7c176e263da392, type: 3}
+  - {fileID: 3922311855408077299, guid: 3dc6a6b7bbb217043b6dd97665cae29a, type: 3}
+  - {fileID: 3922311855408077299, guid: ea07b6eb5dbbc284a8bc552d02f6a6d3, type: 3}
+  roomSize: {x: 25, y: 30}
+  isFinalRoom: 1
+  spawnInterval: 5
 --- !u!1 &1567236954263861049
 GameObject:
   m_ObjectHideFlags: 0

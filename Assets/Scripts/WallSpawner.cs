@@ -20,15 +20,15 @@ public class WallSpawner : MonoBehaviour
         // 위아래 벽
         for (int x = -width / 2; x <= width / 2; x++)
         {
-            Instantiate(wallPrefab, origin + new Vector3(x, -height / 2, 0), Quaternion.identity);
-            Instantiate(wallPrefab, origin + new Vector3(x, height / 2, 0), Quaternion.identity);
+            Instantiate(wallPrefab, origin + new Vector3(x, -height / 2, 0), Quaternion.identity, transform); 
+            Instantiate(wallPrefab, origin + new Vector3(x, height / 2, 0), Quaternion.identity, transform);
         }
 
         // 좌우 벽
         for (int y = -height / 2 + 1; y <= height / 2 - 1; y++)
         {
-            Instantiate(wallPrefab, origin + new Vector3(-width / 2, y, 0), Quaternion.identity);
-            Instantiate(wallPrefab, origin + new Vector3(width / 2, y, 0), Quaternion.identity);
+            Instantiate(wallPrefab, origin + new Vector3(-width / 2, y, 0), Quaternion.identity, transform);
+            Instantiate(wallPrefab, origin + new Vector3(width / 2, y, 0), Quaternion.identity, transform);
         }
     }
 }
